@@ -23,8 +23,22 @@ class Home extends Component {
     // Create a array that contains the current array and the new todo item
     let new_list = [...this.state.todos, todo];
     // Update the local state with the new array.
-    this.setState({
+    if (this.state.todos.includes(todo.id)) {
+      return;
+    } else {
+      this.setState({
       todos: new_list,
+      });
+    }
+
+  };
+
+  deleteTodo = (id) => {
+    const todos = this.state.todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    this.setState({
+      todos: todos,
     });
   };
   render() {
@@ -39,6 +53,8 @@ class Home extends Component {
         <Todos todos={this.state.todos} />
       </div>
     );
+
+    this.deleteTodo={deleteTodo};
   }
 }
 
